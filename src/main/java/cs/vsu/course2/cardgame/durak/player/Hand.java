@@ -8,35 +8,33 @@ public class Hand {
 
     private ArrayList<Card> cards;
 
-    public Hand(){
+    public Hand() {
         cards = new ArrayList<>();
     }
 
-    public void add(Card card){
+    public void add(Card card) {
         cards.add(card);
     }
 
-    public void remove(Card card){
-        cards.remove(card);
-    }
-
-    public int size(){
+    public int size() {
         return cards.size();
     }
 
-    public boolean toDraw(){
+    public boolean toDraw() {
         return size() > 6;
     }
 
     public int numberToDraw() {
-        if (toDraw()){
+        if (toDraw()) {
             return 0;
         } else {
             return 6 - size();
         }
     }
 
-    public ArrayList<Card> getCards(){ return cards; }
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 
     public Card getCardByIndex(int i) {
         return cards.get(i);
@@ -47,9 +45,9 @@ public class Hand {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String cardsInHand = "";
-        for (Card card : cards){
+        for (Card card : cards) {
             cardsInHand += card + "\n";
         }
         return cardsInHand;

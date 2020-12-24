@@ -13,11 +13,11 @@ public class Deck {
 
     private Stack<Card> cards;
 
-    public Deck(){
+    public Deck() {
         cards = new Stack<>();
         ArrayList<Card> initCards = new ArrayList<>();
-        for (int i = 0; i < Suit.values().length; i++){
-            for (int j = 0; j < Rank.values().length; j++){
+        for (int i = 0; i < Suit.values().length; i++) {
+            for (int j = 0; j < Rank.values().length; j++) {
                 initCards.add(new Card(Rank.values()[j], Suit.values()[i]));
             }
         }
@@ -32,11 +32,15 @@ public class Deck {
             return null;
     }
 
-    public boolean isEmpty(){ return cards.empty();}
+    public boolean isEmpty() {
+        return cards.empty();
+    }
 
-    public int size() { return cards.size(); }
+    public int size() {
+        return cards.size();
+    }
 
-    public Suit determTrump(){
+    public Suit determTrump() {
         Random r = new Random();
         return cards.get(r.nextInt(cards.size())).getSuit();
     }

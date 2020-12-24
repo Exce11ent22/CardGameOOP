@@ -18,8 +18,8 @@ public enum Suit {
         return suit;
     }
 
-    public String getColor(){
-        if (this == HEARTS || this == DIAMONDS){
+    public String getColor() {
+        if (this == HEARTS || this == DIAMONDS) {
             return "Red";
         } else {
             return "Black";

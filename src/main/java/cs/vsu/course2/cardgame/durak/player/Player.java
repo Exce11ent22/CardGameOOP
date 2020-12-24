@@ -12,21 +12,21 @@ public class Player {
     private Hand hand;
     private boolean attacker;
 
-    public Player(String name){
+    public Player(String name) {
         this.name = name;
         this.hand = new Hand();
         attacker = false;
     }
 
-    public Hand getHand(){
+    public Hand getHand() {
         return hand;
     }
 
-    public void takeCard(Card card){ hand.add(card); }
+    public void takeCard(Card card) {
+        hand.add(card);
+    }
 
-    public void discard(Card card){ hand.remove(card); }
-
-    public void replenish(Deck deck){
+    public void replenish(Deck deck) {
         Dealer.replenish(this, deck);
     }
 
@@ -38,18 +38,22 @@ public class Player {
         return attacker;
     }
 
-    public void makeAttacker(){
+    public void makeAttacker() {
         attacker = true;
     }
 
-    public void makeDefender(){
+    public void makeDefender() {
         attacker = false;
     }
 
-    public void switchRole() { attacker = !attacker; }
+    public void switchRole() {
+        attacker = !attacker;
+    }
 
     @Override
-    public String toString(){ return name; }
+    public String toString() {
+        return name;
+    }
 
     public Card getCard(int num) {
         return hand.getCardByIndex(num - 1);

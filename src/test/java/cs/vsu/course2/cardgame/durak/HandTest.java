@@ -1,8 +1,9 @@
 package cs.vsu.course2.cardgame.durak;
 
 import cs.vsu.course2.cardgame.durak.card.Card;
+import cs.vsu.course2.cardgame.durak.card.Rank;
+import cs.vsu.course2.cardgame.durak.card.Suit;
 import cs.vsu.course2.cardgame.durak.player.Hand;
-import cs.vsu.course2.cardgame.durak.player.Player;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,23 +11,16 @@ import static org.junit.Assert.assertEquals;
 public class HandTest {
 
     @Test
-    public void testNumToDraw(){
-        Player player = new Player("Vanya");
-        Hand hand = player.getHand();
+    public void initHandTest(){
+        Hand hand = new Hand();
         assertEquals(6, hand.numberToDraw());
 
-        hand.add(new Card());
+        hand.add(new Card(Rank.ACE, Suit.CLUBS));
         assertEquals(5, hand.numberToDraw());
+        assertEquals(1, hand.size());
 
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        hand.add(new Card());
-        assertEquals(0, hand.numberToDraw());
+        assertEquals(new Card(Rank.ACE, Suit.CLUBS), hand.useCardByIndex(0));
+        assertEquals(0, hand.size());
     }
 
 }

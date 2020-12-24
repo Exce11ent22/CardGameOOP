@@ -1,38 +1,45 @@
 package cs.vsu.course2.cardgame.durak.game;
 
+import cs.vsu.course2.cardgame.durak.database.JDBC;
 import cs.vsu.course2.cardgame.durak.player.Player;
 import cs.vsu.course2.cardgame.durak.card.Card;
 import cs.vsu.course2.cardgame.durak.card.Suit;
 import cs.vsu.course2.cardgame.durak.dealer.Dealer;
 import cs.vsu.course2.cardgame.durak.deck.Deck;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 
     private static Suit trump; //козырь
-    private Player one;
-    private Player two;
+    private Player one, two, attacker, defender, winner, loser;
     private Deck deck;
     private int round;
-    private Player attacker;
-    private Player defender;
     private Table currentField;
     private boolean roundInitiated;
-    public Scanner in = new Scanner(System.in);
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private String timeStart, timeEnd;
+    private final JDBC DB = new JDBC();
+    private final Scanner in = new Scanner(System.in);
 
-    public void run(){
+    public void run() {
         boolean running = true;
-        while (running){
+        while (running) {
+            timeStart = timeFormat.format(Calendar.getInstance().getTime());
             setup();
             game();
+            timeEnd = timeFormat.format(Calendar.getInstance().getTime());
+            DB.addSessionData(this);
+            round = 1;
             System.out.println("The game has ended.");
             System.out.println("Play again? [Y/N]");
 
             boolean validResponse = false;
-            while (!validResponse){
+            while (!validResponse) {
                 String response = in.nextLine().toLowerCase();
                 switch (response) {
                     case "y":
@@ -51,8 +58,49 @@ public class Game {
         }
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
+    public Player getLoser() {
+        return loser;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    //for tests
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+
+    public void setLoser(Player loser) {
+        this.loser = loser;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public void setTimeStart() {
+        this.timeStart = timeFormat.format(Calendar.getInstance().getTime());
+    }
+
+    public void setTimeEnd() {
+        this.timeEnd = timeFormat.format(Calendar.getInstance().getTime());
+    }
+
     //initialization
-    public void setup(){
+    private void setup() {
         //first player
         System.out.print("Name of Player 1: ");
         one = new Player(in.nextLine());
@@ -74,30 +122,30 @@ public class Game {
         round = 1;
     }
 
-    public void game(){
+    private void game() {
         //set attacker
         setAttacker(one);
         setDefender(two);
 
         boolean gameOver = false;
-        while (!gameOver){
+        while (!gameOver) {
             //round
             boolean thisRound = round();
 
-            if(win()){
+            if (win()) {
                 gameOver = true;
             } else {
                 attacker.replenish(deck);
                 defender.replenish(deck);
                 round++;
-                if (!thisRound)
+                if (thisRound)
                     switchRoles();
             }
         }
         System.out.println("The winner is " + winner() + "!\n");
     }
 
-    public boolean round(){
+    private boolean round() {
         String roundName = "Round " + round;
         String headerContent = "Attacker: " + attacker + " | " + "Defender: " + defender + "\n";
         roundInitiated = false;
@@ -137,19 +185,25 @@ public class Game {
         return false;
     }
 
-    public boolean win(){ return winner() != null; }
+    private boolean win() {
+        return winner() != null;
+    }
 
-    public Player winner() {
-        if (one.cardsInHand() == 0 && deck.isEmpty()){
+    private Player winner() {
+        if (one.cardsInHand() == 0 && deck.isEmpty()) {
+            winner = one;
+            loser = two;
             return one;
         }
-        if (two.cardsInHand() == 0 && deck.isEmpty()){
+        if (two.cardsInHand() == 0 && deck.isEmpty()) {
+            winner = two;
+            loser = one;
             return two;
         }
         return null;
     }
 
-    public int playerInput(Player player) {
+    private int playerInput(Player player) {
         boolean isAttacker = player.isAttacker();
         turnPrompt(player);
         int playerSelection = -1;
@@ -172,7 +226,7 @@ public class Game {
         return playerSelection;
     }
 
-    public void turnPrompt(Player player) {
+    private void turnPrompt(Player player) {
         boolean isAttacker = player.isAttacker();
 
         String preContent = "Cards in a Deck: " + deck.size() + "\n";
@@ -208,21 +262,21 @@ public class Game {
         System.out.println(fieldString + preContent + content + tail);
     }
 
-    public void announceCardPlayed(Player player, Card card) {
+    private void announceCardPlayed(Player player, Card card) {
         System.out.println(player + " has played " + card);
     }
 
-    public void setAttacker(Player p) {
+    private void setAttacker(Player p) {
         attacker = p;
         p.makeAttacker();
     }
 
-    public void setDefender(Player p) {
+    private void setDefender(Player p) {
         defender = p;
         p.makeDefender();
     }
 
-    public void switchRoles() {
+    private void switchRoles() {
         Player temp = attacker;
         attacker = defender;
         defender = temp;
@@ -230,7 +284,7 @@ public class Game {
         two.switchRole();
     }
 
-    public boolean defenderResponse(Table table) {
+    private boolean defenderResponse(Table table) {
         int defenderResponse = -1;
         boolean properDefenderResponse = false;
         while (!properDefenderResponse) {
@@ -262,8 +316,8 @@ public class Game {
         return true;
     }
 
-    public boolean attackerResponse(Table table) {
-        int attackerResponse;
+    private boolean attackerResponse(Table table) {
+        int attackerResponse = -1;
         boolean properAttackerResponse = false;
         while (!properAttackerResponse) {
             try {

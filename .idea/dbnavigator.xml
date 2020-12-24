@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -23,23 +23,22 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="ae5b51cc-3fbf-4b2c-8efd-2dfd2b349f10">
-        <schema name="mysql" object-types="table, view" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="ae5b51cc-3fbf-4b2c-8efd-2dfd2b349f10">
-      <console name="Connection" type="STANDARD" schema="mysql" session="Main"><![CDATA[SELECT * 
-FROM card_game;]]></console>
+    <connection id="c43ac13a-2f15-4094-95fc-86c3fed760ce">
+      <console name="Connection" type="STANDARD" schema="card_game" session="Main"><![CDATA[select *
+from sessions_data;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="ae5b51cc-3fbf-4b2c-8efd-2dfd2b349f10" />
+    <connection id="c43ac13a-2f15-4094-95fc-86c3fed760ce" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="c43ac13a-2f15-4094-95fc-86c3fed760ce" dataset="card_game.sessions_data" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -67,7 +66,7 @@ FROM card_game;]]></console>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="ae5b51cc-3fbf-4b2c-8efd-2dfd2b349f10" active="true">
+      <connection id="c43ac13a-2f15-4094-95fc-86c3fed760ce" active="true">
         <database>
           <name value="Connection" />
           <description value="" />
@@ -83,7 +82,7 @@ FROM card_game;]]></console>
           <database value="mysql" />
           <type value="USER_PASSWORD" />
           <user value="root" />
-          <deprecated-pwd value="ZWdpZ2lsMTFkYXRhYmFzZQ==" />
+          <deprecated-pwd value="RGF0YWJhc2VQYXNzd29yZDEyMzQ1Ng==" />
         </database>
         <properties>
           <auto-commit value="false" />
