@@ -1,17 +1,15 @@
 package cs.vsu.course2.cardgame.durak.game;
 
+import cs.vsu.course2.cardgame.durak.Table;
 import cs.vsu.course2.cardgame.durak.database.JDBC;
 import cs.vsu.course2.cardgame.durak.player.Player;
 import cs.vsu.course2.cardgame.durak.card.Card;
 import cs.vsu.course2.cardgame.durak.card.Suit;
-import cs.vsu.course2.cardgame.durak.dealer.Dealer;
-import cs.vsu.course2.cardgame.durak.deck.Deck;
+import cs.vsu.course2.cardgame.durak.Dealer;
+import cs.vsu.course2.cardgame.durak.Deck;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 
@@ -29,10 +27,10 @@ public class Game {
     public void run() {
         boolean running = true;
         while (running) {
-            timeStart = timeFormat.format(Calendar.getInstance().getTime());
+            timeStart = timeFormat.format(Calendar.getInstance().getTime());//todo in game
             setup();
             game();
-            timeEnd = timeFormat.format(Calendar.getInstance().getTime());
+            timeEnd = timeFormat.format(Calendar.getInstance().getTime());//todo in game
             DB.addSessionData(this);
             round = 1;
             System.out.println("The game has ended.");
@@ -123,14 +121,12 @@ public class Game {
     }
 
     private void game() {
-        //set attacker
-        setAttacker(one);
-        setDefender(two);
+        setAttacker();
 
         boolean gameOver = false;
         while (!gameOver) {
-            //round
-            boolean thisRound = round();
+            //round running
+            boolean switchCondition = round();
 
             if (win()) {
                 gameOver = true;
@@ -138,7 +134,7 @@ public class Game {
                 attacker.replenish(deck);
                 defender.replenish(deck);
                 round++;
-                if (thisRound)
+                if (switchCondition)
                     switchRoles();
             }
         }
@@ -234,7 +230,7 @@ public class Game {
         String fieldString;
         String tail = "\t\t\t";
 
-        String content = "Trump: " + trump + player.cardList();
+        String content = "Trump: " + trump + " " + trump.getSimpleForm() + player.cardList();
         content += "=== OTHER OPTIONS ===\n";
 
         // Specified prompts for attacker and defender
@@ -266,10 +262,63 @@ public class Game {
         System.out.println(player + " has played " + card);
     }
 
+    private void setAttacker(){
+        ArrayList<Card> cardsOfP1 = this.one.getHand().getCards();
+        ArrayList<Card> cardsOfP2 = this.two.getHand().getCards();
+
+        ArrayList<Card> trumpsOfP1 = new ArrayList<>();
+        ArrayList<Card> trumpsOfP2 = new ArrayList<>();
+
+        for (Card card : cardsOfP1){
+            if (card.getSuit() == this.trump){
+                trumpsOfP1.add(card);
+            }
+        }
+
+        for (Card card : cardsOfP2){
+            if (card.getSuit() == this.trump){
+                trumpsOfP2.add(card);
+            }
+        }
+
+        if (trumpsOfP1.size() != 0 && trumpsOfP2.size() == 0){
+            attacker = one;
+            one.makeAttacker();
+            defender = two;
+            two.makeDefender();
+        } else if (trumpsOfP1.size() == 0 && trumpsOfP2.size() != 0){
+            attacker = two;
+            two.makeAttacker();
+            defender = one;
+            one.makeDefender();
+        } else if (trumpsOfP1.size() == 0 && trumpsOfP2.size() == 0){
+            attacker = one;
+            one.makeAttacker();
+            defender = two;
+            two.makeDefender();
+        } else {
+            Collections.sort(trumpsOfP1);
+            Collections.sort(trumpsOfP2);
+            if (trumpsOfP1.get(0).getRank().getRankNum() < trumpsOfP2.get(0).getRank().getRankNum()){
+                attacker = one;
+                one.makeAttacker();
+                defender = two;
+                two.makeDefender();
+            } else {
+                attacker = two;
+                two.makeAttacker();
+                defender = one;
+                one.makeDefender();
+            }
+        }
+    }
+
+    /*
     private void setAttacker(Player p) {
         attacker = p;
         p.makeAttacker();
     }
+     */
 
     private void setDefender(Player p) {
         defender = p;

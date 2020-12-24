@@ -1,9 +1,8 @@
 package cs.vsu.course2.cardgame.durak.card;
 
 import java.util.Random;
-import java.util.StringJoiner;
 
-public class Card {
+public class Card implements Comparable<Card>{
 
     private final Suit suit;
     private final Rank rank;
@@ -23,15 +22,20 @@ public class Card {
         this.color = this.suit.getColor();
     }
 
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
     private String getSimplifiedForm() {
-        String[] ranks = new String[]{"6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        String[] suits = new String[]{"♥", "♦", "♠", "♣"};
-        String card = "[";
-        card += ranks[this.getRank().getRankNum() - 6];
-        card += "|";
-        card += suits[this.getSuit().getSuitNum()];
-        card += "]";
-        return card;
+        return "[" + getRank().getSimpleForm() + "|" + getSuit().getSimpleForm() + "]";
     }
 
     @Override
@@ -57,16 +61,8 @@ public class Card {
         return result;
     }
 
-    public Rank getRank() {
-        return rank;
+    @Override
+    public int compareTo(Card card) {
+        return this.getRank().getRankNum() - card.getRank().getRankNum();
     }
-
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
 }

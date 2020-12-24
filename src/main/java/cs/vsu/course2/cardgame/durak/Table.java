@@ -1,4 +1,4 @@
-package cs.vsu.course2.cardgame.durak.game;
+package cs.vsu.course2.cardgame.durak;
 
 import cs.vsu.course2.cardgame.durak.card.Card;
 import cs.vsu.course2.cardgame.durak.card.Suit;

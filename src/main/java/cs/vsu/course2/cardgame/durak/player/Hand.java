@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> cards;
+    private final int maxCardsInHand = 6;
 
     public Hand() {
         cards = new ArrayList<>();
@@ -21,14 +22,14 @@ public class Hand {
     }
 
     public boolean toDraw() {
-        return size() > 6;
+        return size() > maxCardsInHand;
     }
 
     public int numberToDraw() {
         if (toDraw()) {
             return 0;
         } else {
-            return 6 - size();
+            return maxCardsInHand - size();
         }
     }
 

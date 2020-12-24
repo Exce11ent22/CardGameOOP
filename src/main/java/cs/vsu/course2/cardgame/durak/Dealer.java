@@ -1,6 +1,6 @@
-package cs.vsu.course2.cardgame.durak.dealer;
+package cs.vsu.course2.cardgame.durak;
 
-import cs.vsu.course2.cardgame.durak.deck.Deck;
+import cs.vsu.course2.cardgame.durak.Deck;
 import cs.vsu.course2.cardgame.durak.player.Player;
 
 public class Dealer {

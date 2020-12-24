@@ -1,7 +1,5 @@
 package cs.vsu.course2.cardgame.durak;
 
-import cs.vsu.course2.cardgame.durak.dealer.Dealer;
-import cs.vsu.course2.cardgame.durak.deck.Deck;
 import cs.vsu.course2.cardgame.durak.player.Player;
 import org.junit.Test;
 

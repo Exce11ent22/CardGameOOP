@@ -2,21 +2,20 @@ package cs.vsu.course2.cardgame.durak.card;
 
 public enum Suit {
 
-    HEARTS(0),
-    DIAMONDS(1),
-    SPADES(2),
-    CLUBS(3);
+    HEARTS("♥"),
+    DIAMONDS("♦"),
+    SPADES("♠"),
+    CLUBS("♣");
 
     private int suit;
+    private String simpleForm;
 
 
-    Suit(int i) {
-        this.suit = i;
+    Suit(String simpleForm) {
+        this.simpleForm = simpleForm;
     }
 
-    public int getSuitNum() {
-        return suit;
-    }
+    public String getSimpleForm(){ return simpleForm; }
 
     public String getColor() {
         if (this == HEARTS || this == DIAMONDS) {

@@ -2,7 +2,6 @@ package cs.vsu.course2.cardgame.durak;
 
 import cs.vsu.course2.cardgame.durak.card.Card;
 import cs.vsu.course2.cardgame.durak.card.Suit;
-import cs.vsu.course2.cardgame.durak.deck.Deck;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

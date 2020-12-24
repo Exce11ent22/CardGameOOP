@@ -1,4 +1,6 @@
-package cs.vsu.course2.cardgame.durak.game;
+package cs.vsu.course2.cardgame.durak;
+
+import cs.vsu.course2.cardgame.durak.game.Game;
 
 public class Durak {
 

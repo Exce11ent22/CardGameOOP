@@ -1,8 +1,8 @@
 package cs.vsu.course2.cardgame.durak.player;
 
 import cs.vsu.course2.cardgame.durak.card.Card;
-import cs.vsu.course2.cardgame.durak.dealer.Dealer;
-import cs.vsu.course2.cardgame.durak.deck.Deck;
+import cs.vsu.course2.cardgame.durak.Dealer;
+import cs.vsu.course2.cardgame.durak.Deck;
 
 import java.util.ArrayList;
 
