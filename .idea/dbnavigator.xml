@@ -23,7 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="c43ac13a-2f15-4094-95fc-86c3fed760ce">
+        <schema name="card_game" object-types="constraint, index, procedure, function, view, dataset trigger, table, column" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c43ac13a-2f15-4094-95fc-86c3fed760ce">
